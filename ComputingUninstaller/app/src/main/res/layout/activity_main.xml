@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ch.computinguninstaller.MainActivity">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="LOCAL - REMOTE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/localButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        app:layout_constraintTop_toBottomOf="@id/text1"
+        app:layout_constraintRight_toLeftOf="@id/text1" />
+
+    <Button
+        android:id="@+id/remoteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        app:layout_constraintTop_toBottomOf="@id/text1"
+        app:layout_constraintLeft_toRightOf="@id/text1" />
+
+    <EditText
+        android:id="@+id/eggs"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Eggs"
+        app:layout_constraintBottom_toTopOf="@id/text1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/floors"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Floors"
+        app:layout_constraintBottom_toTopOf="@id/eggs"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/localResult"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="18dp"
+        android:text="result"
+        app:layout_constraintRight_toRightOf="@id/localButton"
+        app:layout_constraintTop_toBottomOf="@id/localButton" />
+
+    <TextView
+        android:id="@+id/remoteResult"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="18dp"
+        android:text="result"
+        app:layout_constraintLeft_toLeftOf="@id/remoteButton"
+        app:layout_constraintTop_toBottomOf="@id/remoteButton" />
+
+</android.support.constraint.ConstraintLayout>
