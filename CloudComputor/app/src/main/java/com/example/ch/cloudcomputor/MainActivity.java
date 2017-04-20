@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView receive;
+    private TextView clientInfo, result;
     public static MyHandler myHandler;
 
     @Override
@@ -16,13 +16,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        receive = (TextView) findViewById(R.id.receive);
+        clientInfo = (TextView) findViewById(R.id.clientInfo);
+        result = (TextView) findViewById(R.id.result);
+
         myHandler = new MyHandler();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SocketUtil.TCPRecv();
+                SocketUtil.TCPRecvAndReturn();
             }
         }).start();
     }
@@ -32,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             String str = msg.getData().getString("Result");
-            receive.setText(str);
+            if (str != null)
+                result.setText(str);
+            else {
+                clientInfo.setText(msg.getData().getString("ClientInfo"));
+            }
         }
     }
 }

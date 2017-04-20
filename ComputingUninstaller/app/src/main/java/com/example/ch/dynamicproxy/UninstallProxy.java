@@ -1,7 +1,5 @@
 package com.example.ch.dynamicproxy;
 
-import com.example.ch.computinguninstaller.RemoteDropEgg;
-
 import java.lang.reflect.Proxy;
 
 /**
@@ -13,6 +11,7 @@ public class UninstallProxy {
     public static UninstallInterface getProxy(Object object) {
 
         // 需要代理的接口，被代理类实现的多个接口都必须在这里定义
+        // 接口需要作为参数被传入
         Class[] proxyInstance = new Class[] {UninstallInterface.class};
         // 构建AOP的Advice，这里需要传入业务类的实例
         UninstallInvocationHandler handler = new UninstallInvocationHandler(object);
