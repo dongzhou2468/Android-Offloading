@@ -2,7 +2,6 @@ package com.example.ch.bean;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Map;
 
 /**
  * Created by CH on 2017/4/20.
@@ -10,26 +9,20 @@ import java.util.Map;
 
 public class InfoBean implements Serializable{
 
-    String apkName;
-    String packageName;
-    String className;
-    String methodName;
-    Object[] params;
+//    private String apkName;
+//    private String packageName;
+    // PathClassLoader does not need name of apk and package but action in intent
+    private String actionInIntent;
+    private String className;
+    private String methodName;
+    private Object[] params;
 
-    public String getApkName() {
-        return apkName;
+    public String getActionInIntent() {
+        return actionInIntent;
     }
 
-    public void setApkName(String apkName) {
-        this.apkName = apkName;
-    }
-
-    public String getPackageName() {
-        return packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setActionInIntent(String actionInIntent) {
+        this.actionInIntent = actionInIntent;
     }
 
     public String getClassName() {
@@ -59,8 +52,7 @@ public class InfoBean implements Serializable{
     @Override
     public String toString() {
         return "InfoBean{" +
-                "apkName='" + apkName + '\'' +
-                ", packageName='" + packageName + '\'' +
+                "actionInIntent='" + actionInIntent + '\'' +
                 ", className='" + className + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", params=" + Arrays.toString(params) +

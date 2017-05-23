@@ -12,7 +12,8 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <!-- specified and better to be checked -->
+                <action android:name="com.ch.androidoffloading.client" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
