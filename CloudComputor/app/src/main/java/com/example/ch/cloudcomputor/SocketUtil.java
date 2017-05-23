@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.ch.bean.InfoBean;
+import com.example.ch.dynamicproxy.InfoBean;
 
-import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;

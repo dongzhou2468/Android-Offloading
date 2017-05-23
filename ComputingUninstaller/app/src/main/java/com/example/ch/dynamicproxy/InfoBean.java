@@ -1,4 +1,4 @@
-package com.example.ch.bean;
+package com.example.ch.dynamicproxy;
 
 import java.io.Serializable;
 import java.util.Arrays;

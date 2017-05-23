@@ -1,10 +1,12 @@
-package com.example.ch.bean;
+package com.example.ch.dynamicproxy;
 
 import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Created by CH on 2017/4/20.
+ *
+ * Must have a same signature with InfoBean in Client.
  */
 
 public class InfoBean implements Serializable{

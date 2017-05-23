@@ -2,9 +2,6 @@ package com.example.ch.dynamicproxy;
 
 import android.util.Log;
 
-import com.example.ch.bean.InfoBean;
-import com.example.ch.utils.SocketUtil;
-
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationHandler;
@@ -60,6 +57,8 @@ public class UninstallInvocationHandler implements InvocationHandler {
         }*/
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        // 只能将支持 java.io.Serializable 接口的对象写入流中
+        // 每个serializable对象的类都被编码，编码内容包括类名和类签名、对象的字段值和数组值，以及从初始对象中引用的其他所有对象的闭包。
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(computeInfo);
         byte[] bytes = baos.toByteArray();

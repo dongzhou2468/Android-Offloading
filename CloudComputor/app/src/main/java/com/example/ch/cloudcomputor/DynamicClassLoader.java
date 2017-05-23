@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
 
-import com.example.ch.bean.InfoBean;
+import com.example.ch.dynamicproxy.InfoBean;
 
 import java.io.File;
 import java.lang.reflect.Method;

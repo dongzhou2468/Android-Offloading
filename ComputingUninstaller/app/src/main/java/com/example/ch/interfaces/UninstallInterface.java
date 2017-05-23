@@ -1,4 +1,4 @@
-package com.example.ch.dynamicproxy;
+package com.example.ch.interfaces;
 
 /**
  * Created by CH on 2017/4/15.
@@ -9,10 +9,12 @@ package com.example.ch.dynamicproxy;
  * The two variables are required:
  *      APKNAME      : apk file's name of this app
  *      PACKAGENAME  : value of "package" in manifest
+ * But not needed if using PathClassLoader, and action in intent is specified and added to manifest.
  */
+
 public interface UninstallInterface {
 
-    String APKNAME = "CloudComputor.apk";
-    String PACKAGENAME = "com.example.ch.computinguninstaller";
+//    String APKNAME = "MyAndroid.apk";
+//    String PACKAGENAME = "com.example.ch.computinguninstaller";
     int fun(int n, int m);
 }

@@ -1,8 +1,6 @@
 package com.example.ch.computinguninstaller;
 
-import android.content.Context;
-
-import com.example.ch.dynamicproxy.UninstallInterface;
+import com.example.ch.interfaces.UninstallInterface;
 
 /**
  * Created by CH on 2017/4/15.

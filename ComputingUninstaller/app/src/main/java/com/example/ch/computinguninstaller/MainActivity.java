@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ch.dynamicproxy.UninstallProxy;
-import com.example.ch.utils.SocketUtil;
+import com.example.ch.dynamicproxy.SocketUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(SocketUtil.LOGTAG, "floors:" + n + ", eggs: " + m);
                         myHandler.sendMessage(getMessage(REMOTERESULT, COMPUTING));
                         long beginTime = System.currentTimeMillis();
+                        // uninstall entrance
                         Object result = UninstallProxy.getProxy(new RemoteDropEgg()).fun(n, m);
                         long endTime = System.currentTimeMillis();
                         myHandler.sendMessage(getMessage(REMOTERESULT, String.valueOf(result)
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 }).start();
             }
         });
+
     }
 
     class MyHandler extends Handler {
