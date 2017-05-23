@@ -8,9 +8,12 @@ import com.example.ch.bean.InfoBean;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -32,6 +35,7 @@ public class SocketUtil {
 
         ServerSocket serverSocket;
         byte[] recvBuffer = new byte[1024];
+        Object result = null;
         try {
             while (true) {
                 serverSocket = new ServerSocket(LOCAL_PORT);
@@ -40,34 +44,51 @@ public class SocketUtil {
                 Log.i(LOGTAG, socketAddr + "");
 
                 InputStream is = socket.getInputStream();
-                if (is.read(recvBuffer)!= -1) {
+                if (is.read(recvBuffer) != -1) {
                     ReadComputeInfo(recvBuffer);
                 }
 
-                int result = Computing();
+                Display(result, 0);
+                long beginTime = System.currentTimeMillis();
+                result = DynamicClassLoader.PathClassLoaderWay(computeInfo);
+//                result = DynamicClassLoader.DexClassLoaderWay(computeInfo);
+//                result = DynamicClassLoader.ReflectTest(computeInfo);
+                long endTime = System.currentTimeMillis();
+                Display(result, (int)(endTime - beginTime));
+//                int result = Computing();
 
                 Log.i(LOGTAG, "sending back result...");
-                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));       // or ByteArrayOutputStream
-                bw.write(String.valueOf(result) + "\n");       // int to char might lost; add "\n" and readLine()
-                bw.flush();
+//                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                OutputStream os = socket.getOutputStream();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(baos);
+                oos.writeObject(result);
+                byte[] bytes = baos.toByteArray();
+                Log.i(LOGTAG, bytes.length + "");
+//                bw.write(String.valueOf(result) + "\n");       // int to char might lost; add "\n" and readLine()
+//                bw.flush();
+                os.write(bytes);
+                os.flush();
                 Log.i(LOGTAG, "task finished...");
 
                 serverSocket.close();
+                result = null;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static int Computing() {
+    private static void Display(Object result, int time) {
 
         HandlerSend("ClientInfo", computeInfo.toString());
         HandlerSend("Result", "Computing...");
-        Log.i(LOGTAG, "start computing in cloud...");
-        Object[] params = computeInfo.getParams();
-        int result = DropEgg.fun((Integer)params[0], (Integer)params[1]);
-        HandlerSend("Result", "result: " + String.valueOf(result));
-        return result;
+//        Log.i(LOGTAG, "start computing in cloud...");
+//        Object[] params = computeInfo.getParams();
+//        int result = DropEgg.fun((Integer)params[0], (Integer)params[1]);
+        if (result != null)
+            HandlerSend("Result", "result: " + result.toString() + ", time: " + (double)time / 1000);
+//        return result;
     }
 
     private static void ReadComputeInfo(byte[] recvBuffer) {
