@@ -21,10 +21,10 @@ public class SocketUtil {
 
     public static final String LOGTAG = "myLog";
 
-//    private static final String IP = "116.56.140.66";
-//    private static final int REMOTE_PORT = 34567;
-    private static final String IP = "192.168.1.150";
-    private static final int REMOTE_PORT = 4567;
+    private static final String IP = "116.56.140.66";
+    private static final int REMOTE_PORT = 34567;
+//    private static final String IP = "192.168.1.150";
+//    private static final int REMOTE_PORT = 4567;
     private static final int LOCAL_PORT = 4567;
     private static ServerSocket serverSocket;
     private static Socket clientSocket;

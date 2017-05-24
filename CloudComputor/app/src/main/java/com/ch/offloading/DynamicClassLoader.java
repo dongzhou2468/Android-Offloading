@@ -1,12 +1,10 @@
-package com.example.ch.cloudcomputor;
+package com.ch.offloading;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
-
-import com.example.ch.dynamicproxy.InfoBean;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -110,7 +108,7 @@ public class DynamicClassLoader {
 
         Object result = null;
         try {
-            Class dynClass = Class.forName("com.example.ch.cloudcomputor.DropEgg");
+            Class dynClass = Class.forName("com.ch.offloading.DropEgg");
             Object obj = dynClass.newInstance();
             Log.i(SocketUtil.LOGTAG, "loaded class type: " + obj.getClass());
             Object[] params = infoBean.getParams();

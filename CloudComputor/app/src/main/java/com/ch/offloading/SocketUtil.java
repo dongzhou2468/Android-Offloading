@@ -1,10 +1,8 @@
-package com.example.ch.cloudcomputor;
+package com.ch.offloading;
 
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
-
-import com.example.ch.dynamicproxy.InfoBean;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

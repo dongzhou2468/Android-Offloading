@@ -1,12 +1,14 @@
-package com.example.ch.cloudcomputor;
+package com.ch.offloadingjartest.utils;
+
+import com.ch.offloadingjartest.interfaces.DropEggInt;
 
 /**
- * Created by CH on 2017/4/16.
+ * Created by CH on 2017/5/23.
  */
 
-public class DropEgg {
+public class DropEgg implements DropEggInt{
 
-    public static int fun(int n, int m) {
+    public int fun(int n, int m) {
 
         if (n == 0) return 0;
         if (n <= 1) return 1;

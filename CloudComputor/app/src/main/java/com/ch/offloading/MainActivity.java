@@ -1,12 +1,13 @@
-package com.example.ch.cloudcomputor;
+package com.ch.offloading;
 
-import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.ch.offloading.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,7 +1,5 @@
 package com.example.ch.dynamicproxy;
 
-import com.example.ch.interfaces.UninstallInterface;
-
 import java.lang.reflect.Proxy;
 
 /**
@@ -10,7 +8,7 @@ import java.lang.reflect.Proxy;
 
 public class UninstallProxy {
 
-    public static UninstallInterface getProxy(Object object) {
+    public static Object getProxy(Object object) {
 
         // 需要代理的接口，被代理类实现的多个接口都必须在这里定义
         Class[] proxyInstance = object.getClass().getInterfaces();
@@ -19,7 +17,7 @@ public class UninstallProxy {
         // 生成代理类的字节码加载器
         ClassLoader classLoader = UninstallProxy.class.getClassLoader();
         // 织入器，织入代码并生成代理类
-        UninstallInterface proxy = (UninstallInterface) Proxy.newProxyInstance(classLoader, proxyInstance, handler);
+        Object proxy = Proxy.newProxyInstance(classLoader, proxyInstance, handler);
         return proxy;
     }
 
