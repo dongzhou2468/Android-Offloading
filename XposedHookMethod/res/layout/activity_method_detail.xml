@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+	android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+ 
+    	<!-- class path -->
+		<LinearLayout 
+			android:orientation="vertical"
+       		android:layout_width="wrap_content" 
+       		android:layout_height="wrap_content">
+       		
+		    <TextView android:id="@+id/word_methodName"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="45px"
+				android:layout_marginTop="45px"
+				android:textColor="#D2B48C"
+				android:textSize="16sp"
+				android:text="@string/word_methodName" />
+	        <TextView android:id="@+id/methodNameDetail"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="100px"
+				android:textColor="#000000"
+				android:textSize="18sp" />
+			<TextView android:id="@+id/word_classPath"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="45px"
+				android:layout_marginTop="45px"
+				android:textColor="#D2B48C"
+				android:textSize="16sp"
+				android:text="@string/word_classPath" />
+			<TextView android:id="@+id/classPath"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="100px"
+				android:textColor="#000000"
+				android:textSize="18sp" />
+	       
+       </LinearLayout>
+        
+		<!-- params -->
+		<LinearLayout android:id="@+id/paramDetail"
+			android:orientation="vertical"
+       		android:layout_width="wrap_content" 
+       		android:layout_height="wrap_content">
+			
+		</LinearLayout> 
+		
+       <LinearLayout 
+			android:orientation="vertical"
+       		android:layout_width="wrap_content" 
+       		android:layout_height="wrap_content">
+       		
+		    <TextView android:id="@+id/word_returnType"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="45px"
+				android:layout_marginTop="45px"
+				android:textColor="#D2B48C"
+				android:textSize="16sp"
+				android:text="@string/word_returnType" />
+	        <TextView android:id="@+id/returnTypeDetail"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="100px"
+				android:textColor="#000000"
+				android:textSize="18sp" />
+	       
+       </LinearLayout>
+       
+       <LinearLayout 
+			android:orientation="vertical"
+       		android:layout_width="wrap_content" 
+       		android:layout_height="wrap_content">
+       		
+		    <TextView android:id="@+id/word_timeRecord"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="45px"
+				android:layout_marginTop="45px"
+				android:textColor="#D2B48C"
+				android:textSize="16sp"
+				android:text="@string/word_timeRecord" />
+	        <TextView android:id="@+id/timeRecord"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="100px"
+				android:textColor="#000000"
+				android:textSize="18sp" />
+	       
+       </LinearLayout>
+</LinearLayout>
