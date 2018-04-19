@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
+import com.ch.collector.ResultBean;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,22 +27,42 @@ public class SocketUtil {
 
     private static final int LOCAL_PORT = 4567;
 
-    private static InfoBean computeInfo;
+    public static InfoBean computeInfo;
 
-    public static void TCPRecvAndReturn() {
+    public static void createThread() {
 
         ServerSocket serverSocket;
-        byte[] recvBuffer = new byte[1024];
+        try {
+            serverSocket = new ServerSocket(TimeCostMeasure.MEASURE_PORT);
+            while (true) {
+                final Socket socket = serverSocket.accept();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TimeCostMeasure.TCPRecvAndReturn(socket);
+                    }
+                }).start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void TCPRecvAndReturn(Socket socket) {
+
+//        String memory = MainActivity.getMemoryStat();
+        byte[] recvBuffer = new byte[1024 * 100];
         Object result = null;
         try {
-            while (true) {
-                serverSocket = new ServerSocket(LOCAL_PORT);
-                Socket socket = serverSocket.accept();
                 SocketAddress socketAddr = socket.getRemoteSocketAddress();
-                Log.i(LOGTAG, socketAddr + "");
+                Log.i(LOGTAG, "receive from: " + socketAddr);
 
                 InputStream is = socket.getInputStream();
-                if (is.read(recvBuffer) != -1) {
+                int readCode = 0;
+                readCode = is.read(recvBuffer);
+                Log.i(LOGTAG, "inputstream.read(): " + readCode);
+                if (readCode != -1) {
+                    Log.i(LOGTAG, recvBuffer.length + "");
                     ReadComputeInfo(recvBuffer);
                 }
 
@@ -59,25 +81,28 @@ public class SocketUtil {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(baos);
                 oos.writeObject(result);
+//                oos.writeObject(setResultBean(result, memory));
                 byte[] bytes = baos.toByteArray();
-                Log.i(LOGTAG, bytes.length + "");
+                Log.i(LOGTAG,  "result size: " + bytes.length);
 //                bw.write(String.valueOf(result) + "\n");       // int to char might lost; add "\n" and readLine()
 //                bw.flush();
                 os.write(bytes);
                 os.flush();
                 Log.i(LOGTAG, "task finished...");
 
-                serverSocket.close();
+                socket.close();
                 result = null;
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
+            Log.i(LOGTAG, e.toString());
         }
     }
 
-    private static void Display(Object result, int time) {
+    public static void Display(Object result, int time) {
 
-        HandlerSend("ClientInfo", computeInfo.toString());
+        if (result == null)
+            HandlerSend("ClientInfo", computeInfo.toString());
         HandlerSend("Result", "Computing...");
 //        Log.i(LOGTAG, "start computing in cloud...");
 //        Object[] params = computeInfo.getParams();
@@ -87,7 +112,7 @@ public class SocketUtil {
 //        return result;
     }
 
-    private static void ReadComputeInfo(byte[] recvBuffer) {
+    public static void ReadComputeInfo(byte[] recvBuffer) {
 
         ByteArrayInputStream bais = new ByteArrayInputStream(recvBuffer);
         try {
@@ -117,4 +142,12 @@ public class SocketUtil {
         msg.setData(bundle);
         MainActivity.myHandler.sendMessage(msg);
     }
+
+    public static ResultBean setResultBean(Object result, String memory) {
+        ResultBean rb = new ResultBean();
+        rb.setResult(result);
+        rb.setMemory(memory);
+        return rb;
+    }
+
 }

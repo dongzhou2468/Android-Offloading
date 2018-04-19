@@ -74,29 +74,49 @@ public class DynamicClassLoader {
         return result;
     }
 
+    // 目标函数的执行在计算代理的进程中，所以计算代理需要获得所有目标函数所需的权限
+    /*
+    这咋整？
+    if (pEntry->classLoader != classLoader) {
+        ALOGW("Shared lib '%s' already opened by CL %p; can't open in %p",
+                pathName, pEntry->classLoader, classLoader);
+        return false;
+    }
+    */
     public static Object PathClassLoaderWay(InfoBean infoBean) {
 
         Object result = null;
         Intent intent = new Intent(infoBean.getActionInIntent(), null);
         List<ResolveInfo> resolveinfoes =  packageManager.queryIntentActivities(intent, 0);
-        ActivityInfo actInfo = resolveinfoes.get(0).activityInfo;
+//        Log.i(SocketUtil.LOGTAG, resolveinfoes.toString());
+        ActivityInfo actInfo = resolveinfoes.get(1).activityInfo;
         String apkPath = actInfo.applicationInfo.sourceDir;
         String libPath = actInfo.applicationInfo.nativeLibraryDir;
         PathClassLoader pathClassLoader = new PathClassLoader(apkPath, libPath, classLoader);
         try {
             Class dynClass = pathClassLoader.loadClass(infoBean.getClassName());
+//            Object obj = dynClass.getConstructor().newInstance(infoBean.getAttributes());
             Object obj = dynClass.newInstance();
             Object[] params = infoBean.getParams();
             Class[] reflParams = new Class[params.length];
             for (int i = 0; i < reflParams.length; i++) {
-                reflParams[i] = paramType.get(params[i].getClass());
+                Class clazz = params[i].getClass();
+                Log.i(SocketUtil.LOGTAG, "parameter type: " + clazz.toString());
+                // 基本数据类型的拆包
+                if (paramType.containsKey(clazz))
+                    reflParams[i] = paramType.get(clazz);
+                else
+                    reflParams[i] = clazz;
+//                reflParams[i] = paramType.get(params[i].getClass());
             }
             Method method = dynClass.getMethod(infoBean.getMethodName(), reflParams);
             long timeBeforeInvoke = System.currentTimeMillis();
             Log.i(SocketUtil.LOGTAG, "begin invoke method...");
             result = method.invoke(obj, params);
-            // time log
             Log.i(SocketUtil.LOGTAG, "invoke method time: " + (double) (System.currentTimeMillis() - timeBeforeInvoke) / 1000);
+
+            // 清除上一次的computeInfo
+            SocketUtil.computeInfo = null;
         } catch (Exception e) {
             e.printStackTrace();
         }

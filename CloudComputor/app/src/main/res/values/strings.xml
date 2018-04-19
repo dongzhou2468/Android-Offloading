@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">CloudComputor</string>
+    <string name="app_name">Cloud Computor</string>
+    <string name="result">Result</string>
+    <string name="client_data">Client Data</string>
+    <string name="memory_free">Memory Status</string>
 </resources>

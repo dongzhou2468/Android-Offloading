@@ -1,4 +1,4 @@
-package com.example.ch.dynamicproxy;
+package com.ch.offloading;
 
 import java.lang.reflect.Proxy;
 
@@ -9,6 +9,15 @@ import java.lang.reflect.Proxy;
 public class UninstallProxy {
 
     public static Object getProxy(Object object) {
+
+        // 网络与卸载条件判断
+        boolean networkConn = true;
+
+        if (!networkConn) {
+            return object;
+        }
+        // 网络类型，时间与能耗
+
 
         // 需要代理的接口，被代理类实现的多个接口都必须在这里定义
         Class[] proxyInstance = object.getClass().getInterfaces();

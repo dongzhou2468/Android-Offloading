@@ -1,4 +1,4 @@
-package com.example.ch.dynamicproxy;
+package com.ch.offloading;
 
 import java.io.Serializable;
 import java.util.Arrays;

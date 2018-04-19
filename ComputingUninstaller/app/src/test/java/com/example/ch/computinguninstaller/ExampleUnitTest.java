@@ -1,7 +1,5 @@
 package com.example.ch.computinguninstaller;
 
-import com.example.ch.dynamicproxy.UninstallProxy;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;

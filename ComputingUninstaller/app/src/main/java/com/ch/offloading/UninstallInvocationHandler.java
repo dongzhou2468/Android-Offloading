@@ -1,11 +1,16 @@
-package com.example.ch.dynamicproxy;
+package com.ch.offloading;
 
+import android.icu.text.IDNA;
 import android.util.Log;
 
+import com.example.ch.computinguninstaller.MainActivity;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.jar.Manifest;
 
 /**
  * Created by CH on 2017/4/15.
@@ -14,6 +19,7 @@ import java.lang.reflect.Method;
 public class UninstallInvocationHandler implements InvocationHandler {
 
     private Object target;
+
     private static final String ACTIONININTENT = "com.ch.androidoffloading.client";
 
     UninstallInvocationHandler(Object target) {
@@ -63,14 +69,49 @@ public class UninstallInvocationHandler implements InvocationHandler {
         oos.writeObject(computeInfo);
         byte[] bytes = baos.toByteArray();
         Log.i(SocketUtil.LOGTAG, "length of computeInfo: " + bytes.length);
-        Object result = SocketUtil.TCPSendAndRecv(bytes);
+
+        /*
+        // collection
+        byte[] testBytes;
+        for (int i = 0; i < 400; i++) {
+            if (i % 10 < 8)
+                testBytes = rePack4Col(computeInfo, i % 10);
+            else
+                continue;
+            SocketUtil.TCPSendAndRecv(testBytes, MainActivity.Rn.get(String.valueOf(18 + i % 10)));
+            Thread.sleep(6000);
+        }
+        */
+
+        Object result = Offloading.TCPSendAndRecv(bytes);
+//        Object result = SocketUtil.TCPSendAndRecv(bytes, MainActivity.Rn.get(args[0].toString()));
         if (result == null) {
             // do some policies
+            Log.i("myLog", "result is null, execute locally");
         }
 
 //        Object obj = method.invoke(target, args);
 //        Log.i(SocketUtil.LOGTAG, "AFTER invoke...... " + obj.toString());
 
         return result;
+    }
+
+    private byte[] rePack4Col(InfoBean object, int i) {
+
+        Object[] params = new Integer[2];
+        params[0] = 18 + i;
+        params[1] = 2;
+        object.setParams(params);
+        Log.i(SocketUtil.LOGTAG, object.toString());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(baos);
+            oos.writeObject(object);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] bytes = baos.toByteArray();
+        return bytes;
     }
 }

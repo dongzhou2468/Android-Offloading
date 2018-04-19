@@ -19,4 +19,5 @@ public class DropEgg {
         }
         return min;
     }
+
 }
